@@ -1,11 +1,9 @@
-name: Continuous Delivery
-
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  cd:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -14,16 +12,13 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: simulanaldo Continuous delivery
-        uses: actions/upload-artifact@v4
+      - name: Upload para GitHub Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: projetozip
-          path: |
-            '**.py'
-            README.md
+          path: .
 
   deploy:
-    needs: cd
+    needs: build
     runs-on: ubuntu-latest
 
     permissions:
@@ -35,6 +30,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy para GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
