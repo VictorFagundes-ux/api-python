@@ -23,7 +23,7 @@ jobs:
             README.md
 
   deploy:
-    needs: build
+    needs: cd
     runs-on: ubuntu-latest
 
     permissions:
