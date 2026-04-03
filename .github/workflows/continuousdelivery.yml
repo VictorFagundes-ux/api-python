@@ -1,6 +1,11 @@
+name: Continuous Delivery
+
 on:
   push:
     branches: [ "main" ]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -9,10 +14,9 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Upload para GitHub Pages
+      - name: Upload para Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
@@ -30,6 +34,5 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
