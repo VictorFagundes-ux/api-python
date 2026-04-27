@@ -1,0 +1,6 @@
+fastapi~=0.135.3
+
+fastapi
+uvicorn
+pytest
+httpx
